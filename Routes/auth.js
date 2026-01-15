@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken";
 
 const registerRouter = express.Router();
 
+
+// register route
 registerRouter.post("/register", async (req, res) => {
   try {
     let { fullname, email, password, confirmPassword } = req.body;
@@ -31,7 +33,7 @@ registerRouter.post("/register", async (req, res) => {
     // 4. Duplicate email
     const duplicate = await User.findOne({ email });
     if (duplicate) {
-      return res.status(409).json({ msg: "Duplicate email" });
+      return res.status(409).json({ msg: "This email is already exist!" });
     }
 
     // 5. Hash password
@@ -66,6 +68,7 @@ registerRouter.post("/register", async (req, res) => {
   }
 });
 
+// Login route
 registerRouter.post("/login", async (req, res) => {
   try {
     let { email, password } = req.body;
@@ -103,6 +106,7 @@ registerRouter.post("/login", async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+// authentication user
 registerRouter.get("/me", async (req, res) => {
   // Placeholder for user profile retrieval
   try {
